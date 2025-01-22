@@ -1,4 +1,4 @@
-environment = [ "dev", "qa", "prod" ]
+environment = [ "dev", "prod" ]
 
 deploy = {
   name = "app"
