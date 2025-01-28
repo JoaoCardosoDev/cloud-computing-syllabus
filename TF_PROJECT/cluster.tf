@@ -1,21 +1,13 @@
 resource "minikube_cluster" "my-cluster" {
-  cluster_name = var.clusters.name
-  nodes = var.clusters.nodes
-}
-
-resource "kubernetes_namespace" "namespace" {
-    for_each = toset(var.environment)
-  metadata {
-    name = each.key
-  }
+  cluster_name = var.cluster
+  nodes = var.nodes
 }
 
 resource "kubernetes_config_map" "odoo_config" {
-  for_each = toset(var.environment)
 
   metadata {
     name      = "odoo-config"
-    namespace = each.key
+    namespace = var.environment
   }
 
   data = {

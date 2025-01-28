@@ -1,57 +1,31 @@
-resource "kubernetes_ingress" "ingress" {
+resource "kubernetes_ingress_v1" "odoo_ingress" {
   metadata {
-    name = "${var.deploy.name}-ingress"
+    name      = "odoo-ingress"
+    namespace = var.namespace
+    annotations = {
+      "nginx.ingress.kubernetes.io/ssl-redirect" = "true"
+    }
   }
 
   spec {
-    backend {
-      service_name = "${var.deploy.name}-service"
-      service_port = 8080
-    }
-
     rule {
+      host = var.domain
+
       http {
         path {
+          path = "/"
+          path_type = "Prefix"
+
           backend {
-            service_name = "${var.deploy.name}-service1"
-            service_port = 8080
+            service {
+              name = "odoo-service"
+              port {
+                number = 80
+              }
+            }
           }
-
-          path = "/app1/*"
-        }
-
-        path {
-          backend {
-            service_name = "${var.deploy.name}-service2"
-            service_port = 8080
-          }
-
-          path = "/app2/*"
         }
       }
     }
-
-    tls {
-      secret_name = "tls-secret"
-    }
-  }
-}
-
-resource "kubernetes_service" "postgres" {
-    for_each = toset(var.environment)
-  metadata {
-    name      = "${each.key}-postgres-service"
-    namespace = each.key
-  }
-
-  spec {
-    selector = {
-      app = "database"
-    }
-    port {
-      port        = 5432
-      target_port = 5432
-    }
-    type = "ClusterIP"
   }
 }

@@ -1,35 +1,35 @@
+
+variable "namespace" {
+  description = "the namespace of app"
+  type        = string
+}
+
+variable "client" {
+  description = "which client namespace will be used (Netflix, Meta, Rockstar)"
+  type        = string
+}
+
 variable "environment" {
-  type = list(string)
-  default = [ "dev", "beta", "prod" ]
-  description = "Environment (aka k8s namespace)"
+  description = "which type of env (dev, qa, prod)"
+  type        = string
 }
 
-variable "deploy" {
-    type = object({
-      name = string
-      port = number
-      image = string
-      containerName = string
-      replicas = number
-    })
-    nullable = false
-    description = "Deployment definition"
+variable "domain" {
+  description = "The app domain"
+  type        = string
 }
 
-variable "clusters" {
-  type = object({
-    name  = string
-    nodes = number
-  })
-  nullable = false
-  description = "List of clusters with their names and node counts"
+variable "replica_number" {
+  description = "odoo replica number"
+  type        = number
+  default     = 1
 }
 
-variable "POSTGRES_DB_SECRETS" {
-  type = object({
-    POSTGRES_PASSWORD = string
-    POSTGRES_USER = string
-    POSTGRES_DB = string
-  })
-  sensitive = true  
+variable "cluster" {
+  description = "Cluster name"
+  type = string
+}
+variable "nodes" {
+  description = "Number of nodes"
+  type = number
 }
