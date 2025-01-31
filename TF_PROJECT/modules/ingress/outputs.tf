@@ -1,4 +1,4 @@
 output "ingress_url" {
-  description = "ooo ingress url"
-  value       = "https://${var.domain}"
+  description = "The URL for accessing the application"
+  value       = "https://${var.app_domain}"
 }

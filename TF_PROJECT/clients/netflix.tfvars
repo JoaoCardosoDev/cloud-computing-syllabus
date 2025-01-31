@@ -1,4 +1,7 @@
-client_name   = "netflix"
-environment   = "dev"
-domain_name   = "netflix.example.com"
-replica_count = 3
+# ------------------------------------------------------------------------------
+# Terraform Variables for Netflix Deployment
+# ------------------------------------------------------------------------------
+client       = "netflix"
+env          = "prod"
+domain       = "local.netflix"
+replicas     = 2

@@ -1,4 +1,8 @@
-client_name   = "meta"
-environment   = "dev"
-domain_name   = "meta.example.com"
-replica_count = 2
+# ------------------------------------------------------------------------------
+# Terraform Variables for Meta Deployment
+# ------------------------------------------------------------------------------
+
+client         = "meta"
+env            = "dev"
+domain         = "local.meta"
+replicas       = 2
